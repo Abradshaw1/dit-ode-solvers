@@ -3,7 +3,7 @@ Evaluate FID scores across different ODE solvers and step counts.
 
 Usage:
     python evaluate_solvers.py \
-        --checkpoint /home/aidan/DiT-REPA/checkpoints/20260306_190020/step_99999.pth \
+        --checkpoint checkpoints/clip/step_99999.pth \
         --use_repa --z_dim 768 --encoder_depth 6 \
         --solvers euler heun rk4 \
         --step_counts 5 10 15 25 50 100 \
@@ -11,6 +11,7 @@ Usage:
 """
 import argparse
 import json
+import os
 import time
 
 import torch
@@ -108,9 +109,11 @@ def main():
     parser.add_argument("--data_root", type=str, default="/mnt/nas2/cifar10")
     parser.add_argument("--solvers", nargs="+", default=["euler", "heun", "rk4"])
     parser.add_argument("--step_counts", nargs="+", type=int, default=[5, 10, 15, 25, 50, 100])
-    parser.add_argument("--output", type=str, default="solver_results.json")
+    parser.add_argument("--output", type=str, default="results/solver_results.json")
     args = parser.parse_args()
     args.use_ema = args.use_ema and not args.no_ema
+
+    os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)
 
     device = "cuda" if torch.cuda.is_available() else "cpu"
 
