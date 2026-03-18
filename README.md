@@ -79,7 +79,7 @@ where $z_t = (1-t)x + t\epsilon$ and $\mathcal{L}_{\text{align}}$ maximizes cosi
 **Single FID evaluation** (one solver, one step count):
 
 ```bash
-python evaluate_fid.py \
+python scripts/evaluate_fid.py \
     --checkpoint checkpoints/encoder_a/step_99999.pth \
     --use_repa --z_dim 768 --encoder_depth 6 \
     --cfg_scale 5.0 --sample_steps 50
@@ -89,7 +89,7 @@ python evaluate_fid.py \
 
 ```bash
 # CLIP-aligned model (encoder_a)
-python evaluate_solvers.py \
+python scripts/evaluate_solvers.py \
     --checkpoint checkpoints/encoder_a/step_99999.pth \
     --use_repa --z_dim 768 --encoder_depth 6 \
     --solvers euler heun rk4 \
@@ -98,7 +98,7 @@ python evaluate_solvers.py \
     --data_root ./data
 
 # SigLIP-aligned model (encoder_b)
-python evaluate_solvers.py \
+python scripts/evaluate_solvers.py \
     --checkpoint checkpoints/encoder_b/step_99999.pth \
     --use_repa --z_dim 768 --encoder_depth 6 \
     --solvers euler heun rk4 \
@@ -112,14 +112,14 @@ This generates 50,000 images per (solver, step count) pair and computes FID. Res
 **Generate plots** from saved JSON results:
 
 ```bash
-python plot_results.py
+python scripts/plot_results.py
 # Outputs: results/fid_vs_nfe.png, results/fid_steps_vs_nfe.png
 ```
 
 **Trajectory analysis** (velocity norms + straightness):
 
 ```bash
-python analyze_trajectory.py \
+python scripts/analyze_trajectory.py \
     --checkpoint_a checkpoints/encoder_a/step_99999.pth \
     --checkpoint_b checkpoints/encoder_b/step_99999.pth \
     --use_repa --z_dim 768 --encoder_depth 6
@@ -172,12 +172,13 @@ When plotted against **solver steps** (left→right), RK4 looks best. When plott
 │   ├── repa.py               #   Encoder loading, preprocessing, alignment loss
 │   ├── ema.py                #   Exponential moving average
 │   └── fid_evaluation.py     #   FID computation utilities (Inception features)
-├── train.py                  # Runner: REPA training
-├── sample.py                 # Runner: generate images with any solver
-├── evaluate_solvers.py       # Runner: FID sweep across solvers and step counts
-├── evaluate_fid.py           # Runner: single-config FID evaluation
-├── analyze_trajectory.py     # Runner: velocity norm + trajectory straightness
-├── plot_results.py           # Runner: generate figures from result JSONs
+├── train.py                  # Training (REPA + rectified flow)
+├── sample.py                 # Generate images with any solver
+├── scripts/
+│   ├── evaluate_solvers.py   #   FID sweep across solvers and step counts
+│   ├── evaluate_fid.py       #   Single-config FID evaluation
+│   ├── analyze_trajectory.py #   Velocity norm + trajectory straightness
+│   └── plot_results.py       #   Generate figures from result JSONs
 ├── configs/
 │   └── default.yaml          # All hyperparameters in one place
 ├── results/                  # Evaluation outputs (JSONs + figures)
