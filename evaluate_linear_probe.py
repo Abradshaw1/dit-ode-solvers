@@ -22,8 +22,8 @@ import torchvision
 from torchvision import transforms as T
 from tqdm import tqdm
 
-from dit import DiT
-from ema import LitEma
+from src.dit import DiT
+from src.ema import LitEma
 
 
 @torch.no_grad()

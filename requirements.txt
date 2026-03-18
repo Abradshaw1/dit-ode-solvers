@@ -1,0 +1,13 @@
+torch>=2.2
+torchvision>=0.17
+torchdiffeq>=0.2.3
+timm>=0.9
+einops>=0.8
+tqdm
+numpy
+matplotlib
+pytorch-fid
+open-clip-torch
+bitsandbytes
+wandb
+moviepy

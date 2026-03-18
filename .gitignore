@@ -3,9 +3,9 @@ __pycache__/
 *.pth
 *.pt
 wandb/
-results/
 images/
 checkpoints/
-*.png
-*.pdf
 .ipynb_checkpoints/
+results/dataset_stats.npz
+data/
+samples/

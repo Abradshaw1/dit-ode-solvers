@@ -21,9 +21,9 @@ import torchvision
 from torchvision import transforms as T
 from tqdm import tqdm
 
-from dit import DiT
-from ema import LitEma
-from repa import load_encoder, preprocess_for_encoder, extract_encoder_features
+from src.dit import DiT
+from src.ema import LitEma
+from src.repa import load_encoder, preprocess_for_encoder, extract_encoder_features
 
 
 def hsic_unbiased(K, L):

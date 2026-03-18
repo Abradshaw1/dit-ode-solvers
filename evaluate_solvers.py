@@ -3,11 +3,11 @@ Evaluate FID scores across different ODE solvers and step counts.
 
 Usage:
     python evaluate_solvers.py \
-        --checkpoint checkpoints/clip/step_99999.pth \
+        --checkpoint checkpoints/encoder_a/step_99999.pth \
         --use_repa --z_dim 768 --encoder_depth 6 \
         --solvers euler heun rk4 \
         --step_counts 5 10 15 25 50 100 \
-        --cfg_scale 5.0
+        --output results/solver_results_encoder_a.json
 """
 import argparse
 import json
@@ -18,10 +18,10 @@ import torch
 import torchvision
 from torchvision import transforms as T
 
-from dit import DiT
-from ema import LitEma
-from model import RectifiedFlow
-from fid_evaluation import FIDEvaluation
+from src.dit import DiT
+from src.ema import LitEma
+from src.model import RectifiedFlow
+from src.fid_evaluation import FIDEvaluation
 
 
 def load_model(args, device):
@@ -70,7 +70,7 @@ class SolverFIDEvaluation(FIDEvaluation):
         if not self.dataset_stats_loaded:
             self.load_or_precalc_dataset_stats()
 
-        from fid_evaluation import num_to_groups
+        from src.fid_evaluation import num_to_groups
         batches = num_to_groups(self.n_samples, self.batch_size)
         stacked_fake_features = []
         self.print_fn(

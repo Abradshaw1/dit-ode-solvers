@@ -10,10 +10,10 @@ import torch
 import torchvision
 from torchvision import transforms as T
 
-from dit import DiT
-from ema import LitEma
-from model import RectifiedFlow
-from fid_evaluation import FIDEvaluation
+from src.dit import DiT
+from src.ema import LitEma
+from src.model import RectifiedFlow
+from src.fid_evaluation import FIDEvaluation
 
 
 def main():

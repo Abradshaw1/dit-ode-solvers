@@ -6,7 +6,7 @@ from einops import rearrange
 
 from tqdm.auto import tqdm
 
-from dit import DiT
+from .dit import DiT
 
 
 def normalize_to_neg1_1(x):

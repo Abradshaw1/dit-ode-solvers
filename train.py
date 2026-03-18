@@ -1,4 +1,4 @@
-from dit import DiT
+from src.dit import DiT
 import os
 import argparse
 from datetime import datetime
@@ -8,12 +8,12 @@ import torchvision
 from torchvision import transforms as T
 from torchvision.utils import make_grid, save_image
 from tqdm import tqdm
-from ema import LitEma
+from src.ema import LitEma
 from bitsandbytes.optim import AdamW8bit
 
-from model import RectifiedFlow
-from fid_evaluation import FIDEvaluation
-from repa import load_encoder, preprocess_for_encoder, extract_encoder_features
+from src.model import RectifiedFlow
+from src.fid_evaluation import FIDEvaluation
+from src.repa import load_encoder, preprocess_for_encoder, extract_encoder_features
 
 import moviepy.editor as mpy
 import wandb

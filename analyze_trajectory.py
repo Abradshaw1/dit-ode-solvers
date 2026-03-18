@@ -10,9 +10,9 @@ from tqdm import tqdm
 
 matplotlib.rcParams.update({'font.size': 12})
 
-from dit import DiT
-from ema import LitEma
-from model import RectifiedFlow
+from src.dit import DiT
+from src.ema import LitEma
+from src.model import RectifiedFlow
 
 
 def load_model(args, device):
