@@ -30,11 +30,6 @@ All solvers are in [`model.py`](model.py) within `RectifiedFlow`. Given step siz
 ### 1. Environment
 
 ```bash
-# Option A: conda (full reproducibility)
-conda env create -f environment.yml
-conda activate dit
-
-# Option B: pip (core dependencies only)
 pip install -r requirements.txt
 ```
 
@@ -188,8 +183,7 @@ When plotted against **solver steps** (left→right), RK4 looks best. When plott
 ├── results/                  # Evaluation outputs (JSONs + figures)
 ├── report/                   # LaTeX report
 ├── checkpoints/              # Pretrained weights (gitignored)
-├── environment.yml           # Full conda environment
-└── requirements.txt          # Core pip dependencies
+└── requirements.txt          # Dependencies
 ```
 
 ## References
