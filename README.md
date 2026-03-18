@@ -182,7 +182,6 @@ Plotted against **solver steps** (left), RK4 looks best. Plotted against **NFE**
 ├── configs/
 │   └── default.yaml          # All hyperparameters in one place
 ├── results/                  # Evaluation outputs (JSONs + figures)
-├── report/                   # LaTeX report
 ├── checkpoints/              # Pretrained weights (gitignored)
 └── requirements.txt          # Dependencies
 ```

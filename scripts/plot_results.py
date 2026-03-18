@@ -44,7 +44,6 @@ ax1.set_ylim(14, 75); ax2.set_ylim(14, 75)
 fig.suptitle("FID vs NFE: ODE Solver Comparison", fontsize=14, fontweight="bold")
 plt.tight_layout()
 plt.savefig("results/fid_vs_nfe.png", dpi=200, bbox_inches="tight")
-plt.savefig("report/fid_vs_nfe.pdf", bbox_inches="tight")
 print("Saved fid_vs_nfe")
 
 # --- Figure 2: FID vs NFE zoomed (NFE <= 100) ---
@@ -56,7 +55,6 @@ ax1.set_ylim(14, 40); ax2.set_ylim(14, 40)
 fig.suptitle("FID vs NFE: Low-NFE Regime (≤100)", fontsize=14, fontweight="bold")
 plt.tight_layout()
 plt.savefig("results/fid_vs_nfe_zoomed.png", dpi=200, bbox_inches="tight")
-plt.savefig("report/fid_vs_nfe_zoomed.pdf", bbox_inches="tight")
 print("Saved fid_vs_nfe_zoomed")
 
 # --- Figure 3: Side-by-side NFE vs Steps (CLIP model) ---
@@ -72,7 +70,6 @@ fig.suptitle("Steps ≠ Cost: Higher-order methods reduce steps but not NFE effi
              fontsize=13, fontweight="bold")
 plt.tight_layout()
 plt.savefig("results/fid_steps_vs_nfe.png", dpi=200, bbox_inches="tight")
-plt.savefig("report/fid_steps_vs_nfe.pdf", bbox_inches="tight")
 print("Saved fid_steps_vs_nfe")
 
 plt.close("all")

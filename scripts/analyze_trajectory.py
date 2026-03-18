@@ -157,7 +157,6 @@ def main():
     fig.suptitle("ODE Trajectory Diagnostics", fontsize=14, fontweight="bold")
     plt.tight_layout()
     plt.savefig("results/trajectory_diagnostics.png", dpi=200, bbox_inches="tight")
-    plt.savefig("report/trajectory_diagnostics.pdf", bbox_inches="tight")
     print("Saved trajectory diagnostics")
     plt.close("all")
 
