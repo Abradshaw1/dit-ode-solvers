@@ -10,11 +10,11 @@ $$\frac{dz}{dt} = -v_\theta(z, t), \quad z(1) \sim \mathcal{N}(0, I), \quad t: 1
 
 where $v_\theta$ is a learned velocity field parameterized by a Diffusion Transformer (DiT). The standard approach uses Euler's method, but classical numerical analysis offers higher-order alternatives. This project asks: **does solver choice matter for image quality at matched computational cost?**
 
-We train DiT-S/2 on CIFAR-10 with [REPA](https://arxiv.org/abs/2402.17726) alignment (aligning intermediate DiT features with frozen CLIP/SigLIP encoders), then compare solvers by measuring FID as a function of NFE (number of forward passes through the network).
+A DiT-S/2 is trained on CIFAR-10 with [REPA](https://arxiv.org/abs/2402.17726) alignment (aligning intermediate DiT features with frozen CLIP/SigLIP encoders). Solvers are compared by measuring FID as a function of NFE (number of forward passes through the network).
 
 ### ODE Solvers
 
-All solvers are in [`model.py`](model.py) within `RectifiedFlow`. Given step size $h = 1/N$:
+All solvers are in [`src/model.py`](src/model.py) within `RectifiedFlow`. Given step size $h = 1/N$:
 
 | Solver | Order | NFE/step | Update rule |
 |--------|-------|----------|-------------|
@@ -46,7 +46,7 @@ python train.py --data_root ./data
 
 ### 3. Training
 
-Train a DiT-S/2 with REPA alignment. Two encoder options:
+To train a DiT-S/2 with REPA alignment, two encoder options are available:
 
 ```bash
 # CLIP-aligned model
@@ -72,7 +72,7 @@ All configuration is documented in [`configs/default.yaml`](configs/default.yaml
 
 $$\mathcal{L} = \underbrace{\|v_\theta(z_t, t) - (\epsilon - x)\|^2}_{\text{denoising}} + \lambda \underbrace{\mathcal{L}_{\text{align}}}_{\text{REPA}}$$
 
-where $z_t = (1-t)x + t\epsilon$ and $\mathcal{L}_{\text{align}}$ maximizes cosine similarity between DiT layer-6 features and frozen encoder patch tokens. We use $\lambda = 0.5$.
+where $z_t = (1-t)x + t\epsilon$ and $\mathcal{L}_{\text{align}}$ maximizes cosine similarity between DiT layer-6 features and frozen encoder patch tokens. $\lambda = 0.5$ is used for all experiments.
 
 ### 4. Sampling & Evaluation
 
@@ -130,7 +130,7 @@ python scripts/analyze_trajectory.py \
 
 ## Results
 
-Evaluated on two REPA-aligned checkpoints (CLIP, SigLIP), generating 50K images per configuration with CFG scale 5.0 and EMA weights.
+Two REPA-aligned checkpoints (CLIP, SigLIP) evaluated across all solver/step combinations. 50K images generated per configuration with CFG scale 5.0 and EMA weights.
 
 ### FID vs NFE
 
@@ -152,7 +152,7 @@ At matched computational cost (NFE), **Euler is competitive with or better than 
 
 ![Steps vs NFE](results/fid_steps_vs_nfe.png)
 
-When plotted against **solver steps** (left→right), RK4 looks best. When plotted against **NFE** (true cost), Euler wins. Each RK4 step costs 4× an Euler step — higher-order methods reduce step count but not NFE efficiency.
+Plotted against **solver steps** (left), RK4 looks best. Plotted against **NFE** (right, true cost), Euler wins. Each RK4 step costs 4× an Euler step — higher-order methods reduce step count but not NFE efficiency.
 
 ### Key Findings
 
