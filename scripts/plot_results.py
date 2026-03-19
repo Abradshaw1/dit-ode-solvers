@@ -73,6 +73,7 @@ fig.suptitle("Steps ≠ Cost: Higher-order methods reduce steps but not NFE effi
              fontsize=14, fontweight="bold")
 plt.tight_layout()
 plt.savefig("results/fid_steps_vs_nfe.png", dpi=200, bbox_inches="tight")
+plt.savefig("results/fid_steps_vs_nfe.pdf", bbox_inches="tight")
 print("Saved fid_steps_vs_nfe")
 
 plt.close("all")
