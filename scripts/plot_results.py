@@ -57,17 +57,20 @@ plt.tight_layout()
 plt.savefig("results/fid_vs_nfe_zoomed.png", dpi=200, bbox_inches="tight")
 print("Saved fid_vs_nfe_zoomed")
 
-# --- Figure 3: Side-by-side NFE vs Steps (CLIP model) ---
-# This is the key comparison: same data, two x-axes, curve ordering FLIPS
-fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(12, 5), sharey=True)
-plot_panel(results_a, "(a) FID vs NFE (computational cost)", ax1, get_nfes_and_fids, "Number of Function Evaluations (NFE)")
-plot_panel(results_a, "(b) FID vs Sampling Steps", ax2, get_steps_and_fids, "Number of Solver Steps")
-ax1.set_ylim(14, 40); ax2.set_ylim(14, 40)
-ax1.set_xlim(0, 110); ax2.set_xlim(0, 110)
-# Remove duplicate y-label on right panel
-ax2.set_ylabel("")
+# --- Figure 3: 2x2 grid — Steps vs NFE for both encoders ---
+# Top row: Encoder A (CLIP), Bottom row: Encoder B (SigLIP)
+# Left column: FID vs NFE, Right column: FID vs Steps
+fig, axes = plt.subplots(2, 2, figsize=(12, 10), sharey=True)
+plot_panel(results_a, "CLIP — FID vs NFE", axes[0, 0], get_nfes_and_fids, "Number of Function Evaluations (NFE)")
+plot_panel(results_a, "CLIP — FID vs Steps", axes[0, 1], get_steps_and_fids, "Number of Solver Steps")
+plot_panel(results_b, "SigLIP — FID vs NFE", axes[1, 0], get_nfes_and_fids, "Number of Function Evaluations (NFE)")
+plot_panel(results_b, "SigLIP — FID vs Steps", axes[1, 1], get_steps_and_fids, "Number of Solver Steps")
+for ax in axes.flat:
+    ax.set_ylim(14, 40)
+    ax.set_xlim(0, 110)
+axes[0, 1].set_ylabel(""); axes[1, 1].set_ylabel("")
 fig.suptitle("Steps ≠ Cost: Higher-order methods reduce steps but not NFE efficiency",
-             fontsize=13, fontweight="bold")
+             fontsize=14, fontweight="bold")
 plt.tight_layout()
 plt.savefig("results/fid_steps_vs_nfe.png", dpi=200, bbox_inches="tight")
 print("Saved fid_steps_vs_nfe")
